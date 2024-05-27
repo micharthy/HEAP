@@ -2,7 +2,7 @@
 version: 2
 
 sources:
-  - name: source
+  - name: stage
     schema: heap
     database: heap-424608
     description: dataset from HomeExchange on their customers subscriptions and house swaps
