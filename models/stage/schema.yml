@@ -1,0 +1,126 @@
+
+version: 2
+
+models:
+  - name: stg_exchanges
+    description: data on home/apartment exchanges. 
+    docs:
+      show: true
+      node_color: blue
+    columns:
+      - name: conversation_id
+        description: Primary key identifier of customer orders
+        tests:
+          - not_null
+
+      - name: exchange_id
+        description: user_id of the person initiating the exchange
+
+      - name: created_at
+        description: date of creation of the conversation (=exchange request)
+      
+      - name: creator_id
+        description: user_id of the person initiating the exchange
+
+      - name: guest_user_id
+        description: user_id of the person initiating the exchange
+
+      - name: host_user_id
+        description: user_id of the person initiating the exchange
+
+      - name: finalized_at
+        description: date when the exchange was finalized (if null, it means that the exchange request was not successful)
+
+      - name: canceled_at
+        description: date when the finalized exchange has been cancelled
+
+      - name: start_on
+        description: date when the exchange starts (can be filled in even if the exchange is not finalized. It corresponds to the requested dates)
+
+      - name: end_on
+        description: date when the exchange ends (can be filled in even if the exchange is not finalized. It corresponds to the requested dates)
+
+      - name: guest_countguest_count
+        description: number of people coming
+
+      - name: night_count
+        description: number of nights of the exchange
+
+      - name: user_cancellation_id
+        description: user_id who canceled
+
+      - name: exchange_type
+        description: via Guest Points or reciprocal if the exchange is reciprocal, only one conversation is created (via the creator_id we know who initiated the request), but two exchanges are created
+
+      - name: home_type
+        description: house or appartment
+
+      - name: residence_type
+        description: main or secondary house
+
+      - name: capacity
+        description: maximum number of people who can come
+
+      - name: country
+        description: host house country
+
+      - name: region
+        description: host house region
+
+      - name: department
+        description: host house department
+
+      - name: city
+        description: host house city
+
+  - name: stg_subscriptions
+    description: Sample of subscriptions since 2019 (particular context in 2020/2021). If renew = 1 , you will find the subscription line and the renewal line for the next year
+    docs:
+      show: true
+      node_color: red
+    columns:
+      - name: subscription_date
+        description: YYYY-MM-DD date format of the subscription start date
+        tests:
+          - not_null
+
+      - name: user_id
+        description: ID of the owner of the subscription
+        tests:
+          - not_null
+
+      - name: renew
+        description: did the user re-subscribe the following year (the month of the expiration of his subscription)
+
+      - name: first_subscription_date	
+        description: date of the users first subscription YYYY-MM-DD
+
+      - name: first_subscription
+        description: index of the distinct product within the order
+
+      - name: referral
+        description: 1 if the user has been sponsored
+
+      - name: promotion
+        description: 1 if the user had a promotion for his subscription
+
+      - name: payment3x
+        description: 1 if the user has used the 3x payment to subscribe
+
+      - name: payment2
+        description: 1 if the user has paid his 2nd payment
+
+      - name: payment3
+        description: 1 if the user has paid his 3rd payment
+
+      - name: country
+        description: user country
+
+      - name: region
+        description: user region
+
+      - name: department
+        description: user department
+
+      - name: city
+        description: user city
