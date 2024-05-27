@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from {{ source('source', 'exchanges') }}
+    select * from {{ source('stage', 'exchanges') }}
 
 ),
 

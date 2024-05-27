@@ -37,7 +37,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   HEAP:
-    stage:
+    source:
       +schema: stage
       +materialized: view
     mart:
