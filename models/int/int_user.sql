@@ -2,7 +2,7 @@ with
 
 subscriptions as (
 
-    select * from {{ ref('int_subscriptions')}}
+    select * from {{ ref('int_user_subscriptions')}}
 
 ),
 
@@ -16,22 +16,31 @@ guest_exchanges as (
 
 select 
 
-    sub.user_id as s_user_id,
-    sum(sub.renew) as nb_years_cust,
-    date_trunc(min(sub.first_subscription_date), YEAR) as start_year,
-    max(sub.referral) as referral,
+    sub.user_id as user_id,
+    sub.country as country,
+    sub.nb_renewals as nb_renewals,
+    date_trunc(sub.first_year, YEAR) as start_year,
+    sub.latest_year as latest_year,
+    sub.account_age as account_age_years,
+    sub.account_status as account_status,
+    sub.payment_type as payment_type,
+    sub.referral as referral,
 
-    /*--- combining data from exchanges when user is host
-    count(exg_host.creator_id) as nb_exg_init,
-    countif(exg_host.canceled_at IS NOT NULL) as nb_exg_host_cancel,
-    countif(exg_host.canceled_at IS NOT NULL AND exg_host.user_cancellation_id = exg_host.creator_id) as nb_exg_host_self_cancel,
-    sum(exg_host.night_count) as nb_nights_reqst_received,
+    --- combining data from exchanges when user is host
+    exg_host.nb_reqst as host_nb_exg,
+    exg_host.nb_nights_reqst as host_nb_nights,
+    exg_host.nb_success_exg as host_nb_success_exg,
+    exg_host.nb_matched_exg as host_nb_matched_exg,
+    exg_host.nb_failed_exg as host_nb_failed_exg,
 
     ---- combining data from exchanges when user is guest
-    count(exg_guest.guest_user_id) as nb_exg_received,
-    countif(exg_guest.canceled_at IS NOT NULL) as nb_exg_guest_cancel,
-    countif(exg_guest.canceled_at IS NOT NULL AND exg_guest.user_cancellation_id = exg_guest.guest_user_id ) as nb_exg_guest_self_cancel,
-    sum(exg_guest.night_count) as nb_nights_reqst_sent,*/
+    exg_guest.nb_reqst as guest_nb_exg,
+    exg_guest.nb_nights_reqst as guest_nb_nights,
+    exg_guest.nb_success_exg as guest_nb_success_exg,
+    exg_guest.nb_matched_exg as guest_nb_matched_exg,
+    exg_guest.nb_failed_exg as guest_nb_failed_exg,
+
+
     
 from subscriptions as sub
 
@@ -43,4 +52,3 @@ on sub.user_id = exg_host.host_id
 left join guest_exchanges as exg_guest
 on sub.user_id = exg_guest.guest_id
 
-group by s_user_id
