@@ -64,12 +64,6 @@ models:
       - name: country
         description: host house country
 
-      - name: region
-        description: host house region
-
-      - name: department
-        description: host house department
-
       - name: city
         description: host house city
 
@@ -116,11 +110,82 @@ models:
       - name: country
         description: user country
 
-      - name: region
-        description: user region
-
-      - name: department
-        description: user department
-
       - name: city
         description: user city
+
+
+  - name: int_guest_exg
+    description: aggregation of exchange data on a guest user_id level
+    docs:
+      show: true
+      node_color: orange
+    columns:
+      - name: guest_id
+        description: user id of the guest in the exchange
+      - name: nb_reqst
+        description: the amount of exchanges where this user is the guest
+      - name: first_reqst
+        description: the date of the first request in our dataset where this user is the guest
+      - name: last_reqst
+        description: the date of the last request in our dataset where this user is the guest
+      - name: nb_nights_reqst
+        description: the number of nights requested where this user ID is the guest
+      - name: avg_nights_count
+        description: the avg number of nights of requests where this user ID is the guest
+      - name: nb_exg_not_finalized
+        description: number of exchanges made where this user is the guest which weren`t finalized
+      - name: nb_exg_finalized_not_cancelled
+        description: number of exchanges made where this user is the guest which were finalized and successful 
+      - name: nb_exg_finalized_cancelled
+        description: number of exchanges made where this user is the guest which were finalized but then cancelled
+      - name: nb_non_reciprocal_exg
+        description: number of exchanges initiated which were non-reciprocal
+      - name: nb_reciprocal_exg
+        description: number of exchanges initiated which were reciprocal
+      - name: min_capacity
+        description: the lowest capacity requested
+      - name: max_capacity
+        description: the highest capacity requested
+      - name: avg_capacity
+        description: the avg capacity requested
+      - name: nb_cities
+        description: number of different cities requested
+
+
+
+  - name: int_host_exg
+    description: aggregation of exchange data on a host user_id level
+    docs:
+      show: true
+      node_color: orange
+    columns:
+      - name: host_id
+        description: user id of the host in the exchange
+      - name: nb_reqst
+        description: the amount of exchanges where this user is the host
+      - name: first_reqst
+        description: the date of the first request in our dataset where this user is the host
+      - name: last_reqst
+        description: the date of the last request in our dataset where this user is the host
+      - name: nb_nights_reqst
+        description: the number of nights requested where this user ID is the host
+      - name: avg_nights_count
+        description: the avg number of nights of requests where this user ID is the host
+      - name: nb_exg_not_finalized
+        description: number of exchanges made where this user is the host which weren`t finalized
+      - name: nb_exg_finalized_not_cancelled
+        description: number of exchanges made where this user is the host which were finalized and successful 
+      - name: nb_exg_finalized_cancelled
+        description: number of exchanges made where this user is the host which were finalized but then cancelled
+      - name: nb_non_reciprocal_exg
+        description: number of exchanges initiated which were non-reciprocal
+      - name: nb_reciprocal_exg
+        description: number of exchanges initiated which were reciprocal
+      - name: min_capacity
+        description: the lowest capacity requested
+      - name: max_capacity
+        description: the highest capacity requested
+      - name: avg_capacity
+        description: the avg capacity requested
+      - name: nb_cities
+        description: number of different cities requested
