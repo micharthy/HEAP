@@ -113,9 +113,8 @@ models:
       - name: city
         description: user city
 
-
   - name: int_guest_exg
-    description: aggregation of exchange data on a guest user_id level
+    description: aggregation of exchange data on a guest user_id level filtered for exchanges where guest IS the creator (to avoid duplicate exchanges)
     docs:
       show: true
       node_color: orange
@@ -151,10 +150,8 @@ models:
       - name: nb_cities
         description: number of different cities requested
 
-
-
   - name: int_host_exg
-    description: aggregation of exchange data on a host user_id level
+    description: aggregation of exchange data on a host user_id level filtered for exchanges where host IS NOT the creator (to avoid duplicate exchanges)
     docs:
       show: true
       node_color: orange
@@ -189,3 +186,49 @@ models:
         description: the avg capacity requested
       - name: nb_cities
         description: number of different cities requested
+
+  - name: int_user_subscriptions
+    description: aggregation of exchange data on a host user_id level filtered for exchanges where host IS NOT the creator (to avoid duplicate exchanges)
+    docs:
+      show: true
+      node_color: orange
+    columns:
+      - name: user_id
+        description: user id 
+      - name: nb_renewals
+        description: count of number of renewals
+      - name: first_year
+        description: year of the first subscription
+      - name: referral
+        description: flag to indicate if the user was referred
+
+  - name: int_user
+    description: aggregation of user data on a user_id level joining subscriptions with host and guest
+    docs:
+      show: true
+      node_color: orange
+    columns:
+      - name: user_id
+        description: user id 
+      - name: nb_renawals
+        description: number of times user renewed subscription
+      - name: start_year
+        description: first year of subscription
+      - name: referral
+        description: referral flag, whether the user was referred
+      - name: host_nb_exg
+        description: number of exchanges where this user was the host (AKA requests received)
+      - name: host_nb_nights
+        description: total number of nights people requested from this host (AKA sum nights requests received )
+      - name: host_nb_exg_not_finalized
+        description: total number of exchanges received which were not finalized
+      - name: host_successful_exg
+        description: total number of succesfull exchanges as host (AKA requests accepted and finalized)
+      - name: guest_nb_exg
+        description: number of exchanges where this user was the guest (AKA requests sent)
+      - name: guest_nb_nights
+        description: total number of nights this individual requested (AKA sum nights requested)
+      - name: guest_nb_exg_not_finalized
+        description: total number of exchanges sent which were not finalized
+      - name: guest_successful_exg
+        description: total number of succesfull exchanges as a guest (AKA requests submitted, accepted and finalized)
