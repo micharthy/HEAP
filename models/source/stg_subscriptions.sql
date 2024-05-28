@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from {{ source('stage', 'subscriptions') }}
+    select * from {{ source('source', 'subscriptions') }}
 
 ),
 
@@ -20,8 +20,8 @@ dropped as (
         payment2,
         payment3,
         country,
-        region,
-        department,
+        ---region,
+        ---department,
         city
 
     from source
@@ -42,8 +42,6 @@ renamed as (
         payment2,
         payment3,
         country,
-        region,
-        department,
         city
 
     from dropped

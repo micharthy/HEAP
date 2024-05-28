@@ -64,12 +64,6 @@ models:
       - name: country
         description: host house country
 
-      - name: region
-        description: host house region
-
-      - name: department
-        description: host house department
-
       - name: city
         description: host house city
 
@@ -115,12 +109,6 @@ models:
 
       - name: country
         description: user country
-
-      - name: region
-        description: user region
-
-      - name: department
-        description: user department
 
       - name: city
         description: user city
