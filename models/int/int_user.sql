@@ -30,15 +30,28 @@ select
     exg_host.nb_reqst as host_nb_exg,
     exg_host.nb_nights_reqst as host_nb_nights,
     exg_host.nb_success_exg as host_nb_success_exg,
-    exg_host.nb_matched_exg as host_nb_matched_exg,
     exg_host.nb_failed_exg as host_nb_failed_exg,
 
     ---- combining data from exchanges when user is guest
     exg_guest.nb_reqst as guest_nb_exg,
     exg_guest.nb_nights_reqst as guest_nb_nights,
     exg_guest.nb_success_exg as guest_nb_success_exg,
-    exg_guest.nb_matched_exg as guest_nb_matched_exg,
     exg_guest.nb_failed_exg as guest_nb_failed_exg,
+
+    ---- classifying user based on activity as a host &/or as a guest
+    case 
+        when exg_host.nb_reqst > 0 AND exg_guest.nb_reqst > 0 then 'MIXED'
+        when exg_host.nb_reqst > 0 THEN 'HOST'
+        when exg_guest.nb_reqst > 0 THEN 'GUEST'
+        else 'problem with rqst classifying'
+    end as intent_type,
+
+    case 
+        when exg_host.nb_success_exg > 0 AND exg_guest.nb_success_exg > 0 then 'MIXED'
+        when exg_host.nb_success_exg > 0 THEN 'HOST'
+        when exg_guest.nb_success_exg > 0 THEN 'GUEST'
+        else 'problem with success rqst classifying'
+    end as actual_type
 
 
     

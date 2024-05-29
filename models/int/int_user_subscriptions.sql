@@ -17,4 +17,6 @@ select
     if(max(payment3x)>0, 'INSTALLMENT', 'LUMP') as payment_type,
     max(referral) as referral 
 from subscriptions
-group by user_id
+group by user_id, country
+
+
